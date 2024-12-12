@@ -11,8 +11,8 @@
       @click="toggleLeftDrawer"
     />
 
-    <q-toolbar-title class="text-h2">
-      Knjiznica
+    <q-toolbar-title class="text-center-h1">
+      Knjižnica
     </q-toolbar-title>
 
     <div>Quasar v{{ $q.version }}</div>
@@ -96,6 +96,12 @@ const linksList = [
     caption: 'Registracija korisnika',
     icon: 'app_registration',
     link: '#/Registracija'
+  },
+  {
+    title: 'Popis knjiga - baza',
+    caption: 'Baza knjiga',
+    icon: 'book',
+    link: '#/PopisKnjigaBaza'
   }
 ]
 
@@ -108,8 +114,7 @@ function toggleLeftDrawer () {
 
 <style>
 .custom-header {
-  background-color: #046307;
+  background-color: #024204;
   color: white; 
 }
 </style>
-

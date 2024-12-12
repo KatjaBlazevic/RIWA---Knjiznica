@@ -1,6 +1,6 @@
 <template>
   <q-page padding>
-    <h1>Popis Knjiga</h1>
+    <h1 class="text-center">Popis Knjiga</h1>
     <p>Ovdje možete pronaći popis svih knjiga u našoj knjižnici.</p>
     <q-table
       :rows="books"
@@ -83,3 +83,12 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+h1 {
+  font-size: 2.5em;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #151629;
+}
+</style>

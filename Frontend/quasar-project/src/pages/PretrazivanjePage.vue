@@ -1,9 +1,20 @@
 <template>
   <q-page padding>
-    <h1>Popis Knjiga</h1>
-    <p>Ovdje možete pronaći popis svih knjiga u našoj knjižnici.</p>
+    <h1 class="text-center">Pretraživanje Knjiga</h1>
+    <p class="text-center">Ovdje možete pretražiti sve knjige u našoj knjižnici po autoru i nazivu knjige.</p>
+
+    <!-- Polje za pretragu -->
+    <q-input
+      v-model="searchQuery"
+      label="Pretraži po autoru ili nazivu knjige"
+      debounce="300"
+      clearable
+      class="q-mb-md"
+    />
+
+    <!-- Tablica s knjigama -->
     <q-table
-      :rows="books"
+      :rows="filteredBooks"
       :columns="columns"
       row-key="id"
     />
@@ -14,6 +25,7 @@
 export default {
   data() {
     return {
+      searchQuery: '',
       books: [
         {
           id: 1,
@@ -61,7 +73,7 @@ export default {
           id: 7,
           naslov: 'Throne of Glass',
           autor: 'Sarah J. Maas',
-          opis: 'Knjiga koja slijedi priču o Celaeni, mladoj ženi koja se bori za svoju slobodu i osvetu, dok se bori u smrtonosnim bitkama i rješava misterije.' ,
+          opis: 'Knjiga koja slijedi priču o Celaeni, mladoj ženi koja se bori za svoju slobodu i osvetu, dok se bori u smrtonosnim bitkama i rješava misterije.',
           stanje: 5
         },
         {
@@ -71,63 +83,6 @@ export default {
           opis: 'Strastvena i emotivna priča o dvoje ljudi koji se bore s prošlošću i neizbježnim osjećajima prema drugima.',
           stanje: 4
         },
-        // Dodane knjige
-        {
-          id: 9,
-          naslov: 'Ponos i predrasude',
-          autor: 'Jane Austen',
-          opis: 'Roman koji istražuje društvene običaje i složenost ljubavi kroz priču o Elizabeth Bennet i gospodinu Darcyju.',
-          stanje: 5
-        },
-        {
-          id: 10,
-          naslov: '1984',
-          autor: 'George Orwell',
-          opis: 'Distopijski roman o totalitarnom društvu i borbi pojedinca za slobodu misli i izražavanja.',
-          stanje: 4
-        },
-        {
-          id: 11,
-          naslov: 'Lovac u žitu',
-          autor: 'J.D. Salinger',
-          opis: 'Roman o adolescentskom otuđenju i potrazi za smislom kroz priču o Holden Caulfieldu.',
-          stanje: 6
-        },
-        {
-          id: 12,
-          naslov: 'Ana Karenjina',
-          autor: 'Lav Tolstoj',
-          opis: 'Priča o ljubavi, društvu i obiteljskim dilemama kroz tragičnu sudbinu Ane Karenjine.',
-          stanje: 3
-        },
-        {
-          id: 13,
-          naslov: 'Veliki Gatsby',
-          autor: 'F. Scott Fitzgerald',
-          opis: 'Priča o luksuzu, ljubavi i društvenim ambicijama u 1920-im kroz lik Jaya Gatsbyja.',
-          stanje: 7
-        },
-        {
-          id: 14,
-          naslov: 'Mali princ',
-          autor: 'Antoine de Saint-Exupéry',
-          opis: 'Filozofska pripovijetka o malom princu i njegovim putovanjima kroz svjetove, tražeći prijateljstvo i ljubav.',
-          stanje: 8
-        },
-        {
-          id: 15,
-          naslov: 'Sto godina samoće',
-          autor: 'Gabriel García Márquez',
-          opis: 'Ep o obitelji Buendía u mitskom mjestu Macondo, koji prati generacije obitelji kroz ljubav, ratove i magijski realizam.',
-          stanje: 5
-        },
-        {
-          id: 16,
-          naslov: 'Zločin i kazna',
-          autor: 'Fjodor Dostojevski',
-          opis: 'Roman o moralnoj dilemi i psihološkoj borbi čovjeka koji se suočava sa svojim zločinom i posljedicama.',
-          stanje: 4
-        }
       ],
       columns: [
         { name: 'id', label: 'ID', field: 'id', align: 'left' },
@@ -137,6 +92,28 @@ export default {
         { name: 'stanje', label: 'Stanje', field: 'stanje', align: 'left' }
       ]
     };
+  },
+  computed: {
+    filteredBooks() {
+      if (this.searchQuery) {
+        return this.books.filter(book => {
+          return (
+            book.naslov.toLowerCase().includes(this.searchQuery.toLowerCase()) ||
+            book.autor.toLowerCase().includes(this.searchQuery.toLowerCase())
+          );
+        });
+      }
+      return this.books;
+    }
   }
 };
 </script>
+
+<style scoped>
+h1 {
+  font-size: 2.5em;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #151629;
+}
+</style>

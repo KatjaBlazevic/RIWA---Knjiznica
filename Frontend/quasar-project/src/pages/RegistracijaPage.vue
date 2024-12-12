@@ -102,6 +102,13 @@ export default {
 </script>
 
 <style scoped>
+h1 {
+  font-size: 2.5em;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #151629;
+}
+
 .q-page {
   max-width: 400px;
   margin: 0 auto;
@@ -115,3 +122,4 @@ export default {
   margin-top: 16px;
 }
 </style>
+

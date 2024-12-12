@@ -2,7 +2,7 @@
   <q-page padding class="flex flex-center bg-grey-1">
     <q-card flat bordered class="q-pa-lg login-card">
       <q-card-section class="text-center">
-        <h1 class="text-dark">Prijava</h1>
+        <h1 class="text-center">Prijava</h1>
         <p class="text-dark">Unesite svoje korisničke podatke za prijavu.</p>
       </q-card-section>
 
@@ -68,6 +68,12 @@ export default {
 </script>
 
 <style scoped>
+h1 {
+  font-size: 2.5em;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #151629;
+}
 .login-card {
   max-width: 400px;
   width: 100%;

@@ -116,6 +116,16 @@ app.get("/api/slob_knjiga/:id_knjiga", (req, res) => {
   });
 });
 
+app.get("/api/rezervacija", (req, res) => {
+  const query =
+    "    SELECT knjiga.naslov, knjiga.autor, korisnik.ime AS korisnik, rezervacija.datum_rez FROM rezervacija " +
+    "JOIN knjiga ON rezervacija.knjiga = knjiga.id JOIN korisnik ON rezervacija.korisnik = korisnik.id;";
+  connection.query(query, (error, results) => {
+    if (error) throw error;
+    res.send(results);
+  });
+});
+
 app.get("/api/rezerv_knjiga", (req, res) => {
   connection.query(
     "SELECT * FROM knjiga, rezervacija WHERE knjiga.id = rezervacija.knjiga",

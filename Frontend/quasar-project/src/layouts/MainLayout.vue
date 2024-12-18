@@ -74,6 +74,12 @@ const linksList = [
     link: '#/Pretrazivanje'
   },
   {
+    title: 'Rezervirane knjige',
+    caption: 'Rezerviranje knjige',
+    icon: 'book',
+    link: '#/Rezervacija'
+  },
+  {
     title: 'O nama',
     caption: 'o_nama',
     icon: 'record_voice_over',
@@ -115,6 +121,6 @@ function toggleLeftDrawer () {
 <style>
 .custom-header {
   background-color: #024204;
-  color: white; 
+  color: white;
 }
 </style>

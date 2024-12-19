@@ -1,12 +1,64 @@
 <template>
   <q-page padding>
-    <h1 class="text-center">Popis Knjiga</h1>
-    <p>Ovdje možete pronaći popis svih knjiga u našoj knjižnici.</p>
-    <q-table
-      :rows="books"
-      :columns="columns"
-      row-key="id"
-    />
+    <div class="q-pa-md">
+      <q-card bordered class="bg-grey-1 shadow-2">
+        <q-card-section>
+          <h1 class="text-center">Popis Knjiga</h1>
+        </q-card-section>
+
+        <q-card-section>
+          <q-table
+            :rows="books"
+            :columns="columns"
+            row-key="id"
+            separator="horizontal"
+            table-class="bg-white text-black"
+            bordered
+            flat
+            square
+            dense
+          >
+            <template v-slot:header="props">
+              <q-tr :props="props" class="bg-red-2 text-white">
+                <q-th
+                  v-for="col in props.cols"
+                  :key="col.name"
+                  :props="props"
+                  class="text-left text-bold"
+                >
+                  {{ col.label }}
+                </q-th>
+              </q-tr>
+            </template>
+
+            <template v-slot:body="props">
+              <q-tr :props="props" class="hover-row">
+                <q-td v-for="col in props.cols" :key="col.name" :props="props">
+                  <!-- Render regular fields -->
+                  <span v-if="col.name !== 'slika' && col.name !== 'opis'">
+                    {{ col.value }}
+                  </span>
+
+                  <!-- Render opis field -->
+                  <div v-if="col.name === 'opis'" class="truncate max-w-200">
+                    {{ props.row.opis }}
+                  </div>
+
+                  <!-- Render slika field -->
+                  <q-img
+                    :src="props.row.slika"
+                    v-if="col.name === 'slika'"
+                    size="75px"
+                    class="rounded-borders shadow-2"
+                    style="max-height: 75px"
+                  />
+                </q-td>
+              </q-tr>
+            </template>
+          </q-table>
+        </q-card-section>
+      </q-card>
+    </div>
   </q-page>
 </template>
 
@@ -89,6 +141,44 @@ h1 {
   font-size: 2.5em;
   font-weight: bold;
   text-transform: uppercase;
-  color: #151629;
+  color: #4a4a4a;
+}
+
+.bg-grey-1 {
+  background-color: #f5f5f5;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.bg-red-2 {
+  background-color: #9aecef;
+}
+
+.text-bold {
+  font-weight: bold;
+}
+
+.hover-row:hover {
+  background-color: #fce4ec;
+}
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.max-w-200 {
+  max-width: 200px;
+}
+
+.rounded-borders {
+  border-radius: 8px;
+}
+
+.shadow-2 {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 </style>

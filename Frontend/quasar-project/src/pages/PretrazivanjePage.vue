@@ -1,23 +1,67 @@
 <template>
   <q-page padding>
-    <h1 class="text-center">Pretraživanje Knjiga</h1>
-    <p class="text-center">Ovdje možete pretražiti sve knjige u našoj knjižnici po autoru i nazivu knjige.</p>
+    <div class="q-pa-md">
+      <q-card bordered class="bg-grey-1 shadow-2">
+        <q-card-section>
+          <h1 class="text-center">Pretraživanje Knjiga</h1>
+          <p class="text-center">Ovdje možete pretražiti sve knjige u našoj knjižnici po autoru i nazivu knjige.</p>
+        </q-card-section>
 
-    <!-- Polje za pretragu -->
-    <q-input
-      v-model="searchQuery"
-      label="Pretraži po autoru ili nazivu knjige"
-      debounce="300"
-      clearable
-      class="q-mb-md"
-    />
+        <!-- Polje za pretragu -->
+        <q-card-section>
+          <q-input
+            v-model="searchQuery"
+            label="Pretraži po autoru ili nazivu knjige"
+            debounce="300"
+            clearable
+            class="q-mb-md"
+          />
+        </q-card-section>
 
-    <!-- Tablica s knjigama -->
-    <q-table
-      :rows="filteredBooks"
-      :columns="columns"
-      row-key="id"
-    />
+        <!-- Tablica s knjigama -->
+        <q-card-section>
+          <q-table
+            :rows="filteredBooks"
+            :columns="columns"
+            row-key="id"
+            bordered
+            flat
+            square
+            dense
+            :pagination="pagination"
+          >
+            <template v-slot:header="props">
+              <q-tr :props="props" class="bg-red-2 text-white">
+                <q-th
+                  v-for="col in props.cols"
+                  :key="col.name"
+                  :props="props"
+                  class="text-left text-bold"
+                >
+                  {{ col.label }}
+                </q-th>
+              </q-tr>
+            </template>
+
+            <template v-slot:body="props">
+              <q-tr :props="props" class="hover-row">
+                <q-td v-for="col in props.cols" :key="col.name" :props="props">
+                  <!-- Render regular fields -->
+                  <span v-if="col.name !== 'opis'">
+                    {{ col.value }}
+                  </span>
+
+                  <!-- Render opis field -->
+                  <div v-if="col.name === 'opis'" class="truncate max-w-200">
+                    {{ props.row.opis }}
+                  </div>
+                </q-td>
+              </q-tr>
+            </template>
+          </q-table>
+        </q-card-section>
+      </q-card>
+    </div>
   </q-page>
 </template>
 
@@ -82,7 +126,7 @@ export default {
           autor: 'Colleen Hoover',
           opis: 'Strastvena i emotivna priča o dvoje ljudi koji se bore s prošlošću i neizbježnim osjećajima prema drugima.',
           stanje: 4
-        },
+        }
       ],
       columns: [
         { name: 'id', label: 'ID', field: 'id', align: 'left' },
@@ -90,7 +134,10 @@ export default {
         { name: 'autor', label: 'Autor', field: 'autor', align: 'left' },
         { name: 'opis', label: 'Opis', field: 'opis', align: 'left' },
         { name: 'stanje', label: 'Stanje', field: 'stanje', align: 'left' }
-      ]
+      ],
+      pagination: {
+        rowsPerPage: 5
+      }
     };
   },
   computed: {
@@ -114,6 +161,40 @@ h1 {
   font-size: 2.5em;
   font-weight: bold;
   text-transform: uppercase;
-  color: #151629;
+  color: #4a4a4a;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.bg-grey-1 {
+  background-color: #f5f5f5;
+}
+
+.bg-red-2 {
+  background-color: #9aecef;
+}
+
+.text-bold {
+  font-weight: bold;
+}
+
+.hover-row:hover {
+  background-color: #fce4ec;
+}
+
+.truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.max-w-200 {
+  max-width: 200px;
+}
+
+.shadow-2 {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 </style>

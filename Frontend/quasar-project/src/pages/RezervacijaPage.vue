@@ -1,37 +1,49 @@
 <template>
   <q-page padding>
     <div class="q-pa-md">
-      <q-table
-        separator="horizontal"
-        title="Popis rezerviranih knjiga"
-        title-class="text-h4 text-bold text-red-9"
-        :rows="reservations"
-        :columns="columns"
-        row-key="id"
-        table-class="text-black"
-        table-style="border: 3px solid black;"
-        table-header-style="height: 65px"
-        table-header-class="bg-red-2"
-        bordered
-        flat
-        square
-        :pagination="pagination"
-      >
-        <template v-slot:header="props">
-          <q-tr :props="props">
-            <q-th v-for="col in props.cols" :key="col.name" :props="props">
-              {{ col.label }}
-            </q-th>
-          </q-tr>
-        </template>
-        <template v-slot:body="props">
-          <q-tr :props="props">
-            <q-td v-for="col in props.cols" :key="col.name" :props="props">
-              {{ col.value }}
-            </q-td>
-          </q-tr>
-        </template>
-      </q-table>
+      <q-card bordered class="bg-grey-1 shadow-2">
+        <q-card-section>
+          <h1 class="text-center">Popis rezerviranih knjiga</h1>
+        </q-card-section>
+
+        <q-card-section>
+          <q-table
+            :rows="reservations"
+            :columns="columns"
+            row-key="id"
+            separator="horizontal"
+            table-class="bg-white text-black"
+            bordered
+            flat
+            square
+            dense
+            :pagination="pagination"
+          >
+            <template v-slot:header="props">
+              <q-tr :props="props" class="bg-red-2 text-white">
+                <q-th
+                  v-for="col in props.cols"
+                  :key="col.name"
+                  :props="props"
+                  class="text-left text-bold"
+                >
+                  {{ col.label }}
+                </q-th>
+              </q-tr>
+            </template>
+
+            <template v-slot:body="props">
+              <q-tr :props="props" class="hover-row">
+                <q-td v-for="col in props.cols" :key="col.name" :props="props">
+                  <span>
+                    {{ col.value }}
+                  </span>
+                </q-td>
+              </q-tr>
+            </template>
+          </q-table>
+        </q-card-section>
+      </q-card>
     </div>
   </q-page>
 </template>
@@ -40,14 +52,6 @@
 import { ref } from "vue";
 import axios from "axios";
 
-const style1 = {
-  fontSize: "18px",
-};
-
-const style2 = {
-  fontSize: "24px",
-};
-
 const columns = [
   {
     name: "naslov",
@@ -55,8 +59,6 @@ const columns = [
     field: "naslov",
     align: "left",
     sortable: true,
-    style: style1,
-    headerStyle: style2,
   },
   {
     name: "autor",
@@ -64,8 +66,6 @@ const columns = [
     field: "autor",
     align: "left",
     sortable: true,
-    style: style1,
-    headerStyle: style2,
   },
   {
     name: "korisnik",
@@ -73,8 +73,6 @@ const columns = [
     field: "korisnik",
     align: "left",
     sortable: true,
-    style: style1,
-    headerStyle: style2,
   },
   {
     name: "datum_rezervacije",
@@ -82,8 +80,6 @@ const columns = [
     field: "datum_rezervacije",
     align: "center",
     sortable: true,
-    style: style1,
-    headerStyle: style2,
   },
 ];
 
@@ -116,3 +112,36 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.text-bold {
+  font-weight: bold;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.bg-grey-1 {
+  background-color: #f5f5f5;
+}
+
+h1 {
+  font-size: 2.5em;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #4a4a4a;
+}
+
+.bg-red-2 {
+  background-color: #9aecef;
+}
+
+.hover-row:hover {
+  background-color: #fce4ec;
+}
+
+.shadow-2 {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+</style>

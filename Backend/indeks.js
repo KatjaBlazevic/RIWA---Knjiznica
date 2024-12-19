@@ -16,9 +16,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const connection = mysql.createConnection({
   host: "student.veleri.hr",
-  user: "ncikovic",
+  user: "riwa",
   password: "11",
-  database: "ncikovic",
+  database: "riwa",
 });
 
 app.use(express.urlencoded({ extended: true }));
@@ -57,11 +57,21 @@ app.post("/api/rezerv_knjiga", (req, res) => {
     (error, results) => {
       if (error) throw error;
       res.send(results);
-    }
-  );
+    })});
 
-  //response.send("Poslano" + data.id_knjiga);
-});
+    app.post("/api/unos_knjiga", (req, res) => {
+      const data = req.body;
+      knjiga = [[data.naslov, data.autor, data.opis, data.slika, data.stanje]];
+     
+      connection.query(
+        "INSERT INTO knjiga (naslov, autor, opis, slika, stanje) VALUES ?",
+        [knjiga],
+        (error, results) => {
+          if (error) throw error;
+          res.send(results);
+        }
+      );
+    });
 
 app.get("/api/knjiga/naslov/:naslov", (req, res) => {
   const naslov = req.params.naslov;

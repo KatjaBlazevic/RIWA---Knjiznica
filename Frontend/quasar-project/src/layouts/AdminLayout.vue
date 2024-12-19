@@ -11,8 +11,7 @@
           @click="toggleLeftDrawer"
         />
 
-        <q-toolbar-title class="text-center-h1 custom-title">Knjižnica</q-toolbar-title>
-
+        <q-toolbar-title class="text-center-h1 custom-title">Knjižnica (admin)</q-toolbar-title>
 
         <div>Quasar v{{ $q.version }}</div>
       </q-toolbar>
@@ -56,34 +55,32 @@ import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
 defineOptions({
-  name: 'MainLayout'
+  name: 'AdminLayout'
 });
 
 const linksList = [
-  { title: 'Početna', caption: 'Početna stranica', icon: 'home', link: '/' },
-  { title: 'Popis knjiga', caption: 'Popis svih knjiga u knjižnici', icon: 'book', link: '/popisKnjiga' },
-  { title: 'Pretraživanje', caption: 'Tražiš knjigu?', icon: 'search', link: '/Pretrazivanje' },
-  { title: 'Rezervirane knjige', caption: 'Rezerviranje knjige', icon: 'book', link: '/Rezervacija' },
-  { title: 'O nama', caption: 'o_nama', icon: 'record_voice_over', link: '/O_nama' },
-  { title: 'Lokacija', caption: 'Gdje se nalazimo?', icon: 'pin_drop', link: '/Lokacija' },
-  { title: 'Login', caption: 'Prijava korisnika', icon: 'login', link: '/Login' },
-  { title: 'Registracija', caption: 'Registracija korisnika', icon: 'app_registration', link: '/Registracija' },
-  { title: 'Popis knjiga - baza', caption: 'Baza knjiga', icon: 'book', link: '/PopisKnjigaBaza' }
+  { title: 'Početna', caption: 'Početna stranica', icon: 'home', link: '/admin' },
+  { title: 'Popis knjiga', caption: 'Popis svih knjiga u knjižnici', icon: 'book', link: '/admin/popisKnjiga' },
+  { title: 'Pretraživanje', caption: 'Tražiš knjigu?', icon: 'search', link: '/admin/Pretrazivanje' },
+  { title: 'Rezervirane knjige', caption: 'Rezervacija knjige', icon: 'book', link: '/admin/Rezervacija' },
+  { title: 'Popis korisnika', caption: 'Popis korisnika', icon: 'favorite', link: '/admin/PopisKorisnika' },
+  { title: 'Unos knjiga', caption: 'Unos nove knjige', icon: 'local_library', link: '/admin/UnosKnjiga' },
+  { title: 'Logout', caption: 'Logout', icon: 'login', link: '/admin/Logout' }
 ]
 
-const leftDrawerOpen = ref(false);
-const router = useRouter();
+const leftDrawerOpen = ref(false)
+const router = useRouter()
 
 function toggleLeftDrawer() {
-  leftDrawerOpen.value = !leftDrawerOpen.value;
+  leftDrawerOpen.value = !leftDrawerOpen.value
 }
 
 function navigateTo(route) {
-  router.push(route);
+  router.push(route)
 }
 </script>
 
-<style scoped>
+<style>
 .custom-header {
   background-color: #fce4ec;
   color: white;
@@ -96,4 +93,3 @@ function navigateTo(route) {
   color: #ffffff;
 }
 </style>
-

@@ -44,8 +44,7 @@
       <q-btn
         label="Potvrdi"
         @click="registerUser"
-        color="primary"
-        class="full-width q-mb-md"
+        class="bg-red-2 text-white full-width q-mb-md"
         size="large"
         :disable="!isFormValid"
       />
@@ -106,7 +105,7 @@ h1 {
   font-size: 2.5em;
   font-weight: bold;
   text-transform: uppercase;
-  color: #151629;
+  color: #4a4a4a;
 }
 
 .q-page {
@@ -118,8 +117,19 @@ h1 {
   text-align: center;
 }
 
+.bg-red-2 {
+  background-color: #fce4ec;
+}
+
+.text-white {
+  color: white !important;
+}
+
+.full-width {
+  width: 100%;
+}
+
 .q-btn {
   margin-top: 16px;
 }
 </style>
-
